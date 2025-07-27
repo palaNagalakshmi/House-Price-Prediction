@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>House Price Predictor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url("{% static 'houseprice/house.jpg' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+      backdrop-filter: blur(4px);
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    input[type="number"],
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background: #1e40af;
+    }
+
+    .result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      color: #10b981;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>🏠House Price Predictor</h2>
+
+    <form method="post">
+      {% csrf_token %}
+
+      <label for="area">Area</label>
+      <input type="number" name="area" required>
+
+      <label for="bedrooms">Bedrooms</label>
+      <input type="number" name="bedrooms" required>
+
+      <label for="bathrooms">Bathrooms</label>
+      <input type="number" name="bathrooms" required>
+
+      <label for="floors">Floors</label>
+      <input type="number" name="floors" required>
+
+      <label for="city">City</label>
+      <input type="text" name="city" required>
+
+      <label for="statezip">State Zip</label>
+      <input type="text" name="statezip" required>
+
+      <label for="zipcode">Zipcode</label>
+      <input type="text" name="zipcode" required>
+
+      <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction %}
+      <div class="result">
+        🏠 Predicted Price: ${{ prediction }}
+      </div>
+    {% endif %}
+  </div>
+
+</body>
+</html>
